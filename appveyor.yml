@@ -11,7 +11,6 @@ branches:
 environment:
   matrix:
     - CMAKE_PLATFORM: Visual Studio 9 2008
-    - CMAKE_PLATFORM: Visual Studio 10 2010
     - CMAKE_PLATFORM: Visual Studio 14 2015
 install:
   - cinstall: python
