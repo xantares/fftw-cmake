@@ -237,15 +237,6 @@ foreach (target ${targets})
   if (HAVE_LIBM)
     target_link_libraries (${target} m)
   endif ()
-  if (target STREQUAL "fftw3f")
-    target_compile_definitions (${target} PRIVATE FFTW_SINGLE)
-  endif ()
-  if (target STREQUAL "fftw3l")
-    target_compile_definitions (${target} PRIVATE FFTW_LDOUBLE)
-  endif ()
-  if (target STREQUAL "fftw3q")
-    target_compile_definitions (${target} PRIVATE FFTW_QUAD)
-  endif ()
 
   set (subtargets ${target})
 
@@ -270,6 +261,16 @@ foreach (target ${targets})
 
   foreach(subtarget ${subtargets})
     set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.6 VERSION 3)
+
+    if (target STREQUAL "fftw3f")
+      target_compile_definitions (${subtarget} PRIVATE FFTW_SINGLE)
+    endif ()
+    if (target STREQUAL "fftw3l")
+      target_compile_definitions (${subtarget} PRIVATE FFTW_LDOUBLE)
+    endif ()
+    if (target STREQUAL "fftw3q")
+      target_compile_definitions (${subtarget} PRIVATE FFTW_QUAD)
+    endif ()
 
     install (TARGETS ${subtarget}
             RUNTIME DESTINATION bin
