@@ -22,6 +22,6 @@ build_script:
   - 7z x fftw-3.3.6-pl2.tar
   - xcopy C:\projects\fftw-cmake\* C:\projects\fftw-3.3.6-pl2 /s /e /y || exit 1
   - cd c:\projects\fftw-3.3.6-pl2
-  - cmake -G "%CMAKE_PLATFORM%" -DBUILD_SHARED_LIBS=ON -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON .
+  - cmake -G "%CMAKE_PLATFORM%" -DBUILD_SHARED_LIBS=ON -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=ON .
   - cmake --build . --config %Configuration% --target tests
   - ctest -C Release
