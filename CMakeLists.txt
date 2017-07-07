@@ -11,17 +11,17 @@ if (POLICY CMP0042)
 endif ()
 
 option (BUILD_SHARED_LIBS "Build shared libraries" ON)
+
 option (ENABLE_OPENMP "Use OpenMP for multithreading" OFF)
 option (ENABLE_THREADS "Use pthread for multithreading" OFF)
 option (WITH_COMBINED_THREADS "Merge thread library" OFF)
-option (ENABLE_SSE "Compile with SSE instruction set support" OFF)
-option (ENABLE_SSE2 "Compile with SSE2 instruction set support" OFF)
-option (ENABLE_AVX "Compile with AVX instruction set support" OFF)
-option (ENABLE_MPI "Compile with MPI support" OFF)
+
 option (ENABLE_FLOAT "single-precision" OFF)
 option (ENABLE_LONG_DOUBLE "long-double precision" OFF)
 option (ENABLE_QUAD_PRECISION "quadruple-precision" OFF)
 
+option (ENABLE_SSE2 "Compile with SSE2 instruction set support" OFF)
+option (ENABLE_AVX "Compile with AVX instruction set support" OFF)
 
 set (LIBRARY_PATH lib${LIB_SUFFIX})
 
@@ -99,6 +99,11 @@ include (CheckCCompilerFlag)
 if (ENABLE_SSE2)
   check_c_compiler_flag (-msse2 MSSE2)
   set (HAVE_SSE2 TRUE)
+endif ()
+
+if (ENABLE_AVX)
+  check_c_compiler_flag (-avx AVX)
+  set (HAVE_AVX TRUE)
 endif ()
 
 if (ENABLE_SSE2 OR ENABLE_AVX)
@@ -225,6 +230,9 @@ foreach (target ${targets})
   endif ()
   if (MSSE2)
     target_compile_options (${target} PRIVATE -msse2)
+  endif ()
+  if (AVX)
+    target_compile_options (${target} PRIVATE -avx)
   endif ()
   if (HAVE_LIBM)
     target_link_libraries (${target} m)
