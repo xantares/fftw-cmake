@@ -195,7 +195,7 @@ if (ENABLE_SSE2)
   list (APPEND SOURCEFILES ${fftw_dft_simd_sse2_SOURCE} ${fftw_rdft_simd_sse2_SOURCE})
 endif ()
 
-set (FFTW_VERSION 3.3.5)
+set (FFTW_VERSION 3.3.6)
 configure_file (config.h.in config.h @ONLY)
 include_directories (${CMAKE_CURRENT_BINARY_DIR})
 
@@ -260,7 +260,7 @@ foreach (target ${targets})
   endif ()
 
   foreach(subtarget ${subtargets})
-    set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.5 VERSION 3)
+    set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.6 VERSION 3)
     if (BUILD_SHARED_LIBS)
       target_compile_definitions (${subtarget} PRIVATE FFTW_DLL)
     endif ()
