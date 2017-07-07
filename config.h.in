@@ -180,7 +180,7 @@
 #cmakedefine HAVE_INTTYPES_H 1
 
 /* Define if the isnan() function/macro is available. */
-#define HAVE_ISNAN 1
+#cmakedefine HAVE_ISNAN 1
 
 /* Define to enable KCVI optimizations. */
 /* #undef HAVE_KCVI */
