@@ -73,6 +73,7 @@ check_symbol_exists (posix_memalign stdlib.h HAVE_POSIX_MEMALIGN)
 check_symbol_exists (mach_absolute_time mach/mach_time.h HAVE_MACH_ABSOLUTE_TIME)
 check_symbol_exists (alloca alloca.h HAVE_ALLOCA)
 check_symbol_exists (isnan math.h HAVE_ISNAN)
+check_symbol_exists (snprintf stdio.h HAVE_SNPRINTF)
 
 if (UNIX)
   set (HAVE_LIBM TRUE)
