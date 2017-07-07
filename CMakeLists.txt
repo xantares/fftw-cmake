@@ -131,28 +131,6 @@ file(GLOB           fftw_simd_support_SOURCE        simd-support/*.c    simd-sup
 file(GLOB           fftw_libbench2_SOURCE           libbench2/*.c       libbench2/*.h)
 list (REMOVE_ITEM   fftw_libbench2_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/libbench2/useropt.c)
 
-
-
-
-include_directories(
-    kernel
-    api
-    dft
-    dft/scalar
-    dft/scalar/codelets # really needed?
-    dft/simd
-    dft/simd/sse2
-    rdft
-    rdft/scalar
-    rdft/simd
-    reodft
-    ${CMAKE_CURRENT_SOURCE_DIR} # thats where the config.h is located
-    simd-support
-    libbench2
-)
-
-install (FILES api/fftw3.h api/fftw3.f DESTINATION include)
-
 set(SOURCEFILES
     ${fftw_api_SOURCE}
     ${fftw_dft_SOURCE}
@@ -185,6 +163,27 @@ set(fftw_par_SOURCE
 
 set (fftw_threads_SOURCE ${fftw_par_SOURCE} threads/threads.c)
 set (fftw_omp_SOURCE ${fftw_par_SOURCE} threads/openmp.c)
+
+
+include_directories(
+    kernel
+    api
+    dft
+    dft/scalar
+    dft/scalar/codelets # really needed?
+    dft/simd
+    dft/simd/sse2
+    rdft
+    rdft/scalar
+    rdft/simd
+    reodft
+    simd-support
+    libbench2
+)
+
+install (FILES api/fftw3.h api/fftw3.f DESTINATION include)
+
+
 
 if (WITH_COMBINED_THREADS)
   list (APPEND SOURCEFILES ${fftw_threads_SOURCE})
