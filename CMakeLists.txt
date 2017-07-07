@@ -212,6 +212,9 @@ if (ENABLE_QUAD_PRECISION)
   list (APPEND targets fftw3q)
 endif ()
 
+if (BUILD_SHARED_LIBS)
+  add_definitions (-DFFTW_DLL)
+endif ()
 
 foreach (target ${targets})
 
@@ -261,16 +264,6 @@ foreach (target ${targets})
 
   foreach(subtarget ${subtargets})
     set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.6 VERSION 3)
-    if (BUILD_SHARED_LIBS)
-      target_compile_definitions (${subtarget} PRIVATE FFTW_DLL)
-    endif ()
-#   if (BUILD_SHARED_LIBS)
-#     add_definitions (-DFFTW_DLL)
-#   endif ()
-
-  
-
-  
 
     install (TARGETS ${subtarget}
             RUNTIME DESTINATION bin
@@ -289,9 +282,6 @@ if (Threads_FOUND)
     target_link_libraries (bench fftw3)
   else ()
     target_link_libraries (bench fftw3_threads)
-  endif ()
-  if (BUILD_SHARED_LIBS)
-    target_compile_definitions (bench PRIVATE FFTW_DLL)
   endif ()
 
   add_custom_target (tests)
