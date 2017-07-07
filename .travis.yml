@@ -1,0 +1,24 @@
+language: cpp
+dist: trusty
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+
+os:
+  - linux
+  - osx
+
+script:
+  - wget http://fftw.org/fftw-3.3.6-pl2.tar.gz && tar xzf fftw-3.3.6-pl2.tar.gz -C /tmp
+  - cp -r /tmp/fftw-3.3.6-pl2 /tmp/fftw-3.3.6-pl2.copy && pushd /tmp/fftw-3.3.6-pl2.copy && ./configure && cat config.h && popd 
+  - cp -r * /tmp/fftw-3.3.6-pl2
+  - cd /tmp/fftw-3.3.6-pl2
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON . && cat config.h
+  - make install -j2 && make tests && ctest
+
