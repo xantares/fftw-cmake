@@ -13,7 +13,6 @@ environment:
     - CMAKE_PLATFORM: Visual Studio 9 2008
     - CMAKE_PLATFORM: Visual Studio 10 2010
     - CMAKE_PLATFORM: Visual Studio 14 2015
-    - CMAKE_PLATFORM: Visual Studio 14 2015 Win64
 install:
   - cinstall: python
 build_script:
