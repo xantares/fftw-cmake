@@ -19,7 +19,7 @@ script:
   - cp -r /tmp/fftw-3.3.6-pl2 /tmp/fftw-3.3.6-pl2.copy && pushd /tmp/fftw-3.3.6-pl2.copy && ./configure && cat config.h && popd 
   - cp -r * /tmp/fftw-3.3.6-pl2
   - cd /tmp/fftw-3.3.6-pl2
-  - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=OFF -DENABLE_LONG_DOUBLE=ON . && cat config.h
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=ON . && cat config.h
   - make install -j2 || make
   - make tests && ctest
 
