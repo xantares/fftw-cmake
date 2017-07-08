@@ -22,7 +22,8 @@ build_script:
   - 7z x fftw-3.3.6-pl2.tar
   - xcopy C:\projects\fftw-cmake\* C:\projects\fftw-3.3.6-pl2 /s /e /y || exit 1
   - cd c:\projects\fftw-3.3.6-pl2
-  - cmake -LAH -G "%CMAKE_PLATFORM%" -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=ON .
+  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX=%CD:\=/%/install -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=ON .
   - type CMakeCache.txt
+  - cmake --build . --config %Configuration% --target install
   - cmake --build . --config %Configuration% --target tests
   - ctest -C Release
