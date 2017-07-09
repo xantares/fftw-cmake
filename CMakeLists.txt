@@ -153,6 +153,7 @@ file(GLOB           fftw_dft_scalar_codelets_SOURCE dft/scalar/codelets/*.c     
 file(GLOB           fftw_dft_simd_SOURCE            dft/simd/*.c        dft/simd/*.h)
 
 file(GLOB           fftw_dft_simd_sse2_SOURCE       dft/simd/sse2/*.c   dft/simd/sse2/*.h)
+file(GLOB           fftw_dft_simd_avx_SOURCE        dft/simd/avx/*.c    dft/simd/avx/*.h)
 file(GLOB           fftw_kernel_SOURCE              kernel/*.c          kernel/*.h)
 file(GLOB           fftw_rdft_SOURCE                rdft/*.c            rdft/*.h)
 file(GLOB           fftw_rdft_scalar_SOURCE         rdft/scalar/*.c     rdft/scalar/*.h)
@@ -166,6 +167,7 @@ file(GLOB           fftw_rdft_scalar_r2r_SOURCE     rdft/scalar/r2r/*.c
 
 file(GLOB           fftw_rdft_simd_SOURCE           rdft/simd/*.c       rdft/simd/*.h)
 file(GLOB           fftw_rdft_simd_sse2_SOURCE      rdft/simd/sse2/*.c  rdft/simd/sse2/*.h)
+file(GLOB           fftw_rdft_simd_avx_SOURCE       rdft/simd/avx/*.c   rdft/simd/avx/*.h)
 
 file(GLOB           fftw_reodft_SOURCE              reodft/*.c          reodft/*.h)
 file(GLOB           fftw_simd_support_SOURCE        simd-support/*.c    simd-support/*.h)
@@ -214,6 +216,7 @@ include_directories(
     dft/scalar/codelets # really needed?
     dft/simd
     dft/simd/sse2
+    dft/simd/avx
     rdft
     rdft/scalar
     rdft/simd
@@ -231,8 +234,12 @@ if (WITH_COMBINED_THREADS)
 endif ()
 
 
-if (ENABLE_SSE2)
+if (HAVE_SSE2)
   list (APPEND SOURCEFILES ${fftw_dft_simd_sse2_SOURCE} ${fftw_rdft_simd_sse2_SOURCE})
+endif ()
+
+if (HAVE_AVX)
+  list (APPEND SOURCEFILES ${fftw_dft_simd_avx_SOURCE} ${fftw_rdft_simd_avx_SOURCE})
 endif ()
 
 set (FFTW_VERSION 3.3.6)
