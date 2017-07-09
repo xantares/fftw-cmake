@@ -25,5 +25,4 @@ build_script:
   - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=OFF -DENABLE_SSE2=ON .
   - type CMakeCache.txt
   - cmake --build . --config %Configuration% --target install
-  - cmake --build . --config %Configuration% --target tests
   - ctest -C Release

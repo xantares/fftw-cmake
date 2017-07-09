@@ -20,8 +20,8 @@ script:
   - cp -r * /tmp/fftw-3.3.6-pl2
   - cd /tmp/fftw-3.3.6-pl2
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=0 -DENABLE_LONG_DOUBLE=0 -DENABLE_SSE2=1 . && cat config.h
-  - make install -j2 && make tests -j2 && ctest
+  - make install -j2 && ctest
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=1 -DENABLE_LONG_DOUBLE=0 -DENABLE_SSE2=1 . && cat config.h
-  - make install -j2 && make tests -j2 && ctest
+  - make install -j2 && ctest
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=0 -DENABLE_LONG_DOUBLE=1 -DENABLE_SSE2=0 . && cat config.h
-  - make install -j2 && make tests -j2 && ctest
+  - make install -j2 && ctest

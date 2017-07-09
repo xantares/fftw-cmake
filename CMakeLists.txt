@@ -11,6 +11,7 @@ if (POLICY CMP0042)
 endif ()
 
 option (BUILD_SHARED_LIBS "Build shared libraries" ON)
+option (BUILD_TESTS "Build tests" ON)
 
 option (ENABLE_OPENMP "Use OpenMP for multithreading" OFF)
 option (ENABLE_THREADS "Use pthread for multithreading" OFF)
@@ -313,17 +314,14 @@ endforeach ()
 
 enable_testing ()
 
-if (Threads_FOUND)
-  add_executable (bench EXCLUDE_FROM_ALL ${fftw_libbench2_SOURCE} tests/bench.c tests/hook.c tests/fftw-bench.c)
+if (Threads_FOUND AND BUILD_TESTS)
+  add_executable (bench ${fftw_libbench2_SOURCE} tests/bench.c tests/hook.c tests/fftw-bench.c)
 
   if (WITH_COMBINED_THREADS)
     target_link_libraries (bench ${fftw3_lib})
   else ()
     target_link_libraries (bench ${fftw3_lib}_threads)
   endif ()
-
-  add_custom_target (tests)
-  add_dependencies (tests bench)
 
   macro (fftw_add_test problem)
     add_test (NAME ${problem} COMMAND bench -s ${problem})
