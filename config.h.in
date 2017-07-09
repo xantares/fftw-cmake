@@ -91,10 +91,10 @@
 /* #undef HAVE_ARMV8CC */
 
 /* Define to enable AVX optimizations. */
-#cmakedefine HAVE_AVX 1
+#cmakedefine01 HAVE_AVX
 
 /* Define to enable AVX2 optimizations. */
-/* #undef HAVE_AVX2 */
+#cmakedefine01 HAVE_AVX2
 
 /* Define to enable AVX512 optimizations. */
 /* #undef HAVE_AVX512 */
