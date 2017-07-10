@@ -8,13 +8,13 @@
 /* #undef ARMV8_HAS_CNTCVT_EL0 */
 
 /* Define to compile in long-double precision. */
-#cmakedefine BENCHFFT_LDOUBLE
+#cmakedefine BENCHFFT_LDOUBLE 1
 
 /* Define to compile in quad precision. */
-#cmakedefine BENCHFFT_QUAD
+#cmakedefine BENCHFFT_QUAD 1
 
 /* Define to compile in single precision. */
-#cmakedefine BENCHFFT_SINGLE
+#cmakedefine BENCHFFT_SINGLE 1
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -60,16 +60,16 @@
 #define FFTW_ENABLE_ALLOCA 1
 
 /* Define to compile in long-double precision. */
-#cmakedefine FFTW_LDOUBLE
+#cmakedefine FFTW_LDOUBLE 1
 
 /* Define to compile in quad precision. */
-#cmakedefine FFTW_QUAD
+#cmakedefine FFTW_QUAD 1
 
 /* Define to enable pseudorandom estimate planning for debugging. */
 /* #undef FFTW_RANDOM_ESTIMATOR */
 
 /* Define to compile in single precision. */
-#cmakedefine FFTW_SINGLE
+#cmakedefine FFTW_SINGLE 1
 
 /* Define to 1 if you have the `abort' function. */
 #define HAVE_ABORT 1
@@ -91,10 +91,10 @@
 /* #undef HAVE_ARMV8CC */
 
 /* Define to enable AVX optimizations. */
-#cmakedefine01 HAVE_AVX
+#cmakedefine HAVE_AVX 1
 
 /* Define to enable AVX2 optimizations. */
-#cmakedefine01 HAVE_AVX2
+#cmakedefine HAVE_AVX2 1
 
 /* Define to enable AVX512 optimizations. */
 /* #undef HAVE_AVX512 */

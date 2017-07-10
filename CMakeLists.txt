@@ -66,7 +66,7 @@ check_prototype_definition (memalign "void *memalign(size_t alignment, size_t si
 check_prototype_definition (posix_memalign "int posix_memalign(void **memptr, size_t alignment, size_t size)" "0" stdlib.h HAVE_DECL_POSIX_MEMALIGN)
 
 include (CheckSymbolExists)
-check_symbol_exists (clock_gettime sys/time.h HAVE_CLOCK_GETTIME)
+check_symbol_exists (clock_gettime time.h HAVE_CLOCK_GETTIME)
 check_symbol_exists (gettimeofday sys/time.h HAVE_GETTIMEOFDAY)
 check_symbol_exists (drand48 stdlib.h HAVE_DRAND48)
 check_symbol_exists (srand48 stdlib.h HAVE_SRAND48)
