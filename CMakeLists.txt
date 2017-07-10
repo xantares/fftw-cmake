@@ -249,8 +249,6 @@ if (HAVE_AVX2)
 endif ()
 
 set (FFTW_VERSION 3.3.6)
-configure_file (config.h.in config.h @ONLY)
-include_directories (${CMAKE_CURRENT_BINARY_DIR})
 
 set (fftw3_lib fftw3)
 if (ENABLE_FLOAT)
@@ -270,6 +268,9 @@ if (ENABLE_QUAD_PRECISION)
   set (BENCHFFT_QUAD TRUE)
   set (fftw3_lib fftw3q)
 endif ()
+
+configure_file (config.h.in config.h @ONLY)
+include_directories (${CMAKE_CURRENT_BINARY_DIR})
 
 if (BUILD_SHARED_LIBS)
   add_definitions (-DFFTW_DLL)
