@@ -27,6 +27,6 @@ build_script:
   - cmake --build . --config %Configuration% --target install
   - ctest -C Release
   - cd extern_test
-  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" .
-  - cmake --build . --config %Configuration% --target all
+  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" .
+  - cmake --build . --config %Configuration% --target install
   - ctest -C Release
