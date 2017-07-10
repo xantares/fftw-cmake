@@ -14,6 +14,7 @@ find_package (FFTW3F)
 include_directories (${FFTW3_INCLUDE_DIR})
 
 add_definitions (-DFFTW_DLL)
+add_definitions (-D_USE_MATH_DEFINES)
 
 enable_testing ()
 
