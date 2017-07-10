@@ -3,8 +3,8 @@ os: Visual Studio 2015
 clone_folder: C:\projects\fftw-cmake
 test: off
 configuration:
-    - Release
-    #- Debug
+    #- Release
+    - Debug
 branches:
   only:
     - master
