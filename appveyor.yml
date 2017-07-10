@@ -25,8 +25,8 @@ build_script:
   - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DENABLE_THREADS=OFF -DWITH_COMBINED_THREADS=OFF -DENABLE_FLOAT=OFF -DENABLE_LONG_DOUBLE=OFF -DENABLE_SSE2=OFF .
   - type config.h
   - cmake --build . --config %Configuration% --target install
-  - ctest -C Release
+  - ctest -C %Configuration%
   - cd extern_test
   - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" .
   - cmake --build . --config %Configuration% --target install
-  - ctest -C Release
+  - ctest -C %Configuration%
