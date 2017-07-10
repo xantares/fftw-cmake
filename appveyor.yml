@@ -23,7 +23,7 @@ build_script:
   - xcopy C:\projects\fftw-cmake\* C:\projects\fftw-3.3.6-pl2 /s /e /y || exit 1
   - cd c:\projects\fftw-3.3.6-pl2
   - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=OFF -DENABLE_SSE2=ON .
-  - type CMakeCache.txt
+  - type config.h
   - cmake --build . --config %Configuration% --target install
   - ctest -C Release
   - cd extern_test
