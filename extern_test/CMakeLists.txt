@@ -11,7 +11,7 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 find_package (FFTW3)
 find_package (FFTW3F)
 
-include_directories (${FFTW_INCLUDE_DIR})
+include_directories (${FFTW3_INCLUDE_DIR})
 
 add_definitions (-DFFTW_DLL)
 
