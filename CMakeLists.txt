@@ -82,7 +82,9 @@ if (UNIX)
 endif ()
 
 
-find_package (Threads)
+if (ENABLE_THREADS)
+  find_package (Threads)
+endif ()
 if (Threads_FOUND)
   if(CMAKE_USE_PTHREADS_INIT)
     set (USING_POSIX_THREADS 1)
