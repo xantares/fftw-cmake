@@ -26,7 +26,6 @@ if (FFTW3_FOUND)
 endif ()
 
 if (FFTW3F_FOUND)
-  message(STATUS)
   add_executable (t_fftw3f t_fftw3f.cpp)
   target_link_libraries (t_fftw3f ${FFTW3F_LIBRARIES})
   add_test (NAME fftw3f COMMAND t_fftw3f)
