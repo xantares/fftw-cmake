@@ -21,7 +21,7 @@ option (ENABLE_FLOAT "single-precision" OFF)
 option (ENABLE_LONG_DOUBLE "long-double precision" OFF)
 option (ENABLE_QUAD_PRECISION "quadruple-precision" OFF)
 
-option (ENABLE_SSE2 "Compile with SSE instruction set support" OFF)
+option (ENABLE_SSE "Compile with SSE instruction set support" OFF)
 option (ENABLE_SSE2 "Compile with SSE2 instruction set support" OFF)
 option (ENABLE_AVX "Compile with AVX instruction set support" OFF)
 option (ENABLE_AVX2 "Compile with AVX2 instruction set support" OFF)
