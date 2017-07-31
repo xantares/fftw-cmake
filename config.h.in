@@ -325,40 +325,40 @@
 /* #undef PTHREAD_CREATE_JOINABLE */
 
 /* The size of `double', as computed by sizeof. */
-#define SIZEOF_DOUBLE 8
+#define SIZEOF_DOUBLE @SIZEOF_DOUBLE@
 
 /* The size of `fftw_r2r_kind', as computed by sizeof. */
 #define SIZEOF_FFTW_R2R_KIND 4
 
 /* The size of `float', as computed by sizeof. */
-#define SIZEOF_FLOAT 4
+#define SIZEOF_FLOAT @SIZEOF_FLOAT@
 
 /* The size of `int', as computed by sizeof. */
-#define SIZEOF_INT 4
+#define SIZEOF_INT @SIZEOF_INT@
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG @SIZEOF_LONG@
 
 /* The size of `long long', as computed by sizeof. */
-#define SIZEOF_LONG_LONG 8
+#define SIZEOF_LONG_LONG @SIZEOF_LONG_LONG@
 
 /* The size of `MPI_Fint', as computed by sizeof. */
 /* #undef SIZEOF_MPI_FINT */
 
 /* The size of `ptrdiff_t', as computed by sizeof. */
-#define SIZEOF_PTRDIFF_T 8
+#define SIZEOF_PTRDIFF_T @SIZEOF_PTRDIFF_T@
 
 /* The size of `size_t', as computed by sizeof. */
-#define SIZEOF_SIZE_T 8
+#define SIZEOF_SIZE_T @SIZEOF_SIZE_T@
 
 /* The size of `unsigned int', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_INT 4
+#define SIZEOF_UNSIGNED_INT @SIZEOF_UNSIGNED_INT@
 
 /* The size of `unsigned long', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_LONG 8
+#define SIZEOF_UNSIGNED_LONG @SIZEOF_UNSIGNED_LONG@
 
 /* The size of `unsigned long long', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_LONG_LONG 8
+#define SIZEOF_UNSIGNED_LONG_LONG @SIZEOF_UNSIGNED_LONG_LONG@
 
 /* The size of `void *', as computed by sizeof. */
 #define SIZEOF_VOID_P @CMAKE_SIZEOF_VOID_P@
