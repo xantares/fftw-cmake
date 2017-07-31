@@ -1,11 +1,3 @@
-/* config.h.  Generated from config.h.in by configure.  */
-/* config.h.in.  Generated from configure.ac by autoheader.  */
-
-/* Define if CNTVCT is 64 bits readable on armv7a */
-/* #undef ARMV7A_HAS_CNTCVT */
-
-/* Define if CNTVCT_EL0 is 64 bits readable on armv8 */
-/* #undef ARMV8_HAS_CNTCVT_EL0 */
 
 /* Define to compile in long-double precision. */
 #cmakedefine BENCHFFT_LDOUBLE 1
@@ -15,11 +7,6 @@
 
 /* Define to compile in single precision. */
 #cmakedefine BENCHFFT_SINGLE 1
-
-/* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
-   systems. This function is required for `alloca.c' support on those systems.
-   */
-/* #undef CRAY_STACKSEG_END */
 
 /* Define to 1 if using `alloca.c'. */
 /* #undef C_ALLOCA */
@@ -45,7 +32,7 @@
 /* #undef FC_DUMMY_MAIN_EQ_F77 */
 
 /* C compiler name and flags */
-#define FFTW_CC "gcc -std=gnu99 -O3 -fomit-frame-pointer -mtune=native -malign-double -fstrict-aliasing -fno-schedule-insns -ffast-math"
+#define FFTW_CC "@CMAKE_C_COMPILER@"
 
 /* Define to enable extra FFTW debugging code. */
 /* #undef FFTW_DEBUG */
@@ -407,7 +394,7 @@
 
 /* Include g77-compatible wrappers in addition to any other Fortran wrappers.
    */
-#define WITH_G77_WRAPPERS 1
+#cmakedefine WITH_G77_WRAPPERS 1
 
 /* Use our own aligned malloc routine; mainly helpful for Windows systems
    lacking aligned allocation system-library routines. */
