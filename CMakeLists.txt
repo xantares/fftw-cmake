@@ -78,6 +78,13 @@ check_symbol_exists (isnan math.h HAVE_ISNAN)
 check_symbol_exists (snprintf stdio.h HAVE_SNPRINTF)
 
 if (UNIX)
+  set (CMAKE_REQUIRED_LIBRARIES m)
+endif ()
+check_symbol_exists (cosl math.h HAVE_COSL)
+check_symbol_exists (sinl math.h HAVE_SINL)
+
+
+if (UNIX)
   set (HAVE_LIBM TRUE)
 endif ()
 

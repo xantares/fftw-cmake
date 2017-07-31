@@ -96,7 +96,7 @@
 #cmakedefine HAVE_CLOCK_GETTIME
 
 /* Define to 1 if you have the `cosl' function. */
-#define HAVE_COSL 1
+#cmakedefine HAVE_COSL 1
 
 /* Define to 1 if you have the <c_asm.h> header file. */
 #cmakedefine HAVE_C_ASM_H 1
@@ -227,7 +227,7 @@
 /* #undef HAVE_READ_REAL_TIME */
 
 /* Define to 1 if you have the `sinl' function. */
-#define HAVE_SINL 1
+#cmakedefine HAVE_SINL 1
 
 /* Define to 1 if you have the `snprintf' function. */
 #cmakedefine HAVE_SNPRINTF 1
