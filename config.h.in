@@ -289,12 +289,6 @@
 /* Define to enable IBM VSX optimizations. */
 /* #undef HAVE_VSX */
 
-/* Define to 1 if you have the `_mm_free' function. */
-/* #undef HAVE__MM_FREE */
-
-/* Define to 1 if you have the `_mm_malloc' function. */
-/* #undef HAVE__MM_MALLOC */
-
 /* Define if you have the UNICOS _rtc() intrinsic. */
 /* #undef HAVE__RTC */
 
