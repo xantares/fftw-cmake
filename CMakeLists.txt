@@ -241,7 +241,7 @@ set (fftw_threads_SOURCE ${fftw_par_SOURCE} threads/threads.c)
 set (fftw_omp_SOURCE ${fftw_par_SOURCE} threads/openmp.c)
 
 
-include_directories(
+include_directories(.
     kernel
     api
     dft
