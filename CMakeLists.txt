@@ -241,8 +241,22 @@ set (fftw_threads_SOURCE ${fftw_par_SOURCE} threads/threads.c)
 set (fftw_omp_SOURCE ${fftw_par_SOURCE} threads/openmp.c)
 
 
-include_directories(.)
-
+include_directories(
+    kernel
+    api
+    dft
+    dft/scalar
+    dft/scalar/codelets # really needed?
+    dft/simd
+    dft/simd/sse2
+    dft/simd/avx
+    rdft
+    rdft/scalar
+    rdft/simd
+    reodft
+    simd-support
+    libbench2
+)
 
 if (WITH_COMBINED_THREADS)
   list (APPEND SOURCEFILES ${fftw_threads_SOURCE})
