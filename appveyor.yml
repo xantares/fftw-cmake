@@ -27,7 +27,7 @@ build_script:
   - cmake --build . --config %Configuration% --target install
   - ctest -C %Configuration% --output-on-failure
   - cd extern_test
-  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" .
+  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" -DFFTW3f_DIR=c:/projects/fftw-3.3.6-pl2/install2/lib/cmake/fftw3f .
   - cmake --build . --config %Configuration% --target install
   - xcopy %CD%\..\install2\bin\*.dll . /y || exit 1
   - ctest -C %Configuration% --output-on-failure

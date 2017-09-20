@@ -405,5 +405,5 @@ configure_file (FFTW3ConfigVersion.cmake.in FFTW3${PREC_SUFFIX}ConfigVersion.cma
 install (FILES
           ${CMAKE_CURRENT_BINARY_DIR}/FFTW3${PREC_SUFFIX}Config.cmake
           ${CMAKE_CURRENT_BINARY_DIR}/FFTW3${PREC_SUFFIX}ConfigVersion.cmake
-         DESTINATION ${LIBRARY_PATH}/cmake/fftw3
+         DESTINATION ${LIBRARY_PATH}/cmake/fftw3${PREC_SUFFIX}
          COMPONENT Development)

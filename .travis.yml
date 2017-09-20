@@ -16,7 +16,7 @@ os:
 
 script:
   - wget http://fftw.org/fftw-3.3.6-pl2.tar.gz && tar xzf fftw-3.3.6-pl2.tar.gz -C /tmp
-  - cp -r /tmp/fftw-3.3.6-pl2 /tmp/fftw-3.3.6-pl2.copy && pushd /tmp/fftw-3.3.6-pl2.copy && ./configure && cat config.h && popd 
+  - cp -r /tmp/fftw-3.3.6-pl2 /tmp/fftw-3.3.6-pl2.copy && pushd /tmp/fftw-3.3.6-pl2.copy && ./configure && cat config.h && popd
   - cp -r * /tmp/fftw-3.3.6-pl2
   - cd /tmp/fftw-3.3.6-pl2
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=0 -DENABLE_LONG_DOUBLE=0 -DENABLE_SSE2=1 . && cat config.h
@@ -26,4 +26,8 @@ script:
   - make install -j2 && ctest
   - rm -f CMakeCache.txt
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DENABLE_THREADS=ON -DENABLE_OPENMP=ON -DENABLE_FLOAT=0 -DENABLE_LONG_DOUBLE=1 -DENABLE_SSE2=0 . && cat config.h
+  - make install -j2 && ctest
+  - cd -
+  - cd extern_test
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local -DFFTW3_DIR=~/.local/lib/cmake/fftw3 -DFFTW3f_DIR=~/.local/lib/cmake/fftw3f .
   - make install -j2 && ctest
