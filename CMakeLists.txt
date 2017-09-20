@@ -33,7 +33,6 @@ include (CheckIncludeFile)
 check_include_file (alloca.h         HAVE_ALLOCA_H)
 check_include_file (altivec.h        HAVE_ALTIVEC_H)
 check_include_file (c_asm.h          HAVE_C_ASM_H)
-check_include_file (dlfcn.h          HAVE_DLFCN_H)
 check_include_file (intrinsics.h     HAVE_INTRINSICS_H)
 check_include_file (inttypes.h       HAVE_INTTYPES_H)
 check_include_file (libintl.h        HAVE_LIBINTL_H)
@@ -163,6 +162,18 @@ if (ENABLE_AVX2)
   endforeach ()
 endif ()
 
+# AVX2 codelets require FMA support as well
+if (ENABLE_AVX2)
+  foreach (FLAG "-mfma" "/arch:FMA")
+    unset (HAVE_FMA CACHE)
+    check_c_compiler_flag (${FLAG} HAVE_FMA)
+    if (HAVE_FMA)
+      set (FMA_FLAG ${FLAG})
+      break()
+    endif ()
+  endforeach ()
+endif ()
+
 if (HAVE_SSE2 OR HAVE_AVX)
   set (HAVE_SIMD TRUE)
 endif ()
@@ -174,7 +185,7 @@ file(GLOB           fftw_dft_simd_SOURCE            dft/simd/*.c        dft/simd
 
 file(GLOB           fftw_dft_simd_sse2_SOURCE       dft/simd/sse2/*.c   dft/simd/sse2/*.h)
 file(GLOB           fftw_dft_simd_avx_SOURCE        dft/simd/avx/*.c    dft/simd/avx/*.h)
-file(GLOB           fftw_dft_simd_avx2_SOURCE       dft/simd/avx2/*.c   dft/simd/avx2/*.h)
+file(GLOB           fftw_dft_simd_avx2_SOURCE       dft/simd/avx2/*.c   dft/simd/avx2/*.h dft/simd/avx2-128/*.c   dft/simd/avx2-128/*.h)
 file(GLOB           fftw_kernel_SOURCE              kernel/*.c          kernel/*.h)
 file(GLOB           fftw_rdft_SOURCE                rdft/*.c            rdft/*.h)
 file(GLOB           fftw_rdft_scalar_SOURCE         rdft/scalar/*.c     rdft/scalar/*.h)
@@ -189,7 +200,7 @@ file(GLOB           fftw_rdft_scalar_r2r_SOURCE     rdft/scalar/r2r/*.c
 file(GLOB           fftw_rdft_simd_SOURCE           rdft/simd/*.c       rdft/simd/*.h)
 file(GLOB           fftw_rdft_simd_sse2_SOURCE      rdft/simd/sse2/*.c  rdft/simd/sse2/*.h)
 file(GLOB           fftw_rdft_simd_avx_SOURCE       rdft/simd/avx/*.c   rdft/simd/avx/*.h)
-file(GLOB           fftw_rdft_simd_avx2_SOURCE      rdft/simd/avx2/*.c   rdft/simd/avx2/*.h)
+file(GLOB           fftw_rdft_simd_avx2_SOURCE      rdft/simd/avx2/*.c  rdft/simd/avx2/*.h rdft/simd/avx2-128/*.c  rdft/simd/avx2-128/*.h)
 
 file(GLOB           fftw_reodft_SOURCE              reodft/*.c          reodft/*.h)
 file(GLOB           fftw_simd_support_SOURCE        simd-support/*.c    simd-support/*.h)
@@ -230,25 +241,7 @@ set (fftw_threads_SOURCE ${fftw_par_SOURCE} threads/threads.c)
 set (fftw_omp_SOURCE ${fftw_par_SOURCE} threads/openmp.c)
 
 
-include_directories(
-    kernel
-    api
-    dft
-    dft/scalar
-    dft/scalar/codelets # really needed?
-    dft/simd
-    dft/simd/sse2
-    dft/simd/avx
-    rdft
-    rdft/scalar
-    rdft/simd
-    reodft
-    simd-support
-    libbench2
-)
-
-install (FILES api/fftw3.h api/fftw3.f DESTINATION include)
-
+include_directories(.)
 
 
 if (WITH_COMBINED_THREADS)
@@ -268,28 +261,29 @@ if (HAVE_AVX2)
   list (APPEND SOURCEFILES ${fftw_dft_simd_avx2_SOURCE} ${fftw_rdft_simd_avx2_SOURCE})
 endif ()
 
-set (FFTW_VERSION 3.3.6)
+set (FFTW_VERSION 3.3.7)
 
-set (fftw3_lib fftw3)
+set (PREC_SUFFIX)
 if (ENABLE_FLOAT)
   set (FFTW_SINGLE TRUE)
   set (BENCHFFT_SINGLE TRUE)
-  set (fftw3_lib fftw3f)
+  set (PREC_SUFFIX f)
 endif ()
 
 if (ENABLE_LONG_DOUBLE)
   set (FFTW_LDOUBLE TRUE)
   set (BENCHFFT_LDOUBLE TRUE)
-  set(fftw3_lib fftw3l)
+  set (PREC_SUFFIX l)
 endif ()
 
 if (ENABLE_QUAD_PRECISION)
   set (FFTW_QUAD TRUE)
   set (BENCHFFT_QUAD TRUE)
-  set (fftw3_lib fftw3q)
+  set (PREC_SUFFIX q)
 endif ()
+set (fftw3_lib fftw3${PREC_SUFFIX})
 
-configure_file (config.h.in config.h @ONLY)
+configure_file (cmake.config.h.in config.h @ONLY)
 include_directories (${CMAKE_CURRENT_BINARY_DIR})
 
 if (BUILD_SHARED_LIBS)
@@ -311,7 +305,10 @@ if (HAVE_AVX)
   target_compile_options (${fftw3_lib} PRIVATE ${AVX_FLAG})
 endif ()
 if (HAVE_AVX2)
-  target_compile_options (${fftw3_lib} PRIVATE ${AVX_FLAG2})
+  target_compile_options (${fftw3_lib} PRIVATE ${AVX2_FLAG})
+endif ()
+if (HAVE_FMA)
+  target_compile_options (${fftw3_lib} PRIVATE ${FMA_FLAG})
 endif ()
 if (HAVE_LIBM)
   target_link_libraries (${fftw3_lib} m)
@@ -339,29 +336,60 @@ if (OPENMP_FOUND)
 endif ()
 
 foreach(subtarget ${subtargets})
-  set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.6 VERSION 3)
+  set_target_properties (${subtarget} PROPERTIES SOVERSION 3.5.7 VERSION 3)
   install (TARGETS ${subtarget}
           RUNTIME DESTINATION bin
           LIBRARY DESTINATION ${LIBRARY_PATH}
           ARCHIVE DESTINATION ${LIBRARY_PATH})
 endforeach ()
 
-enable_testing ()
+install (FILES api/fftw3.h DESTINATION include RENAME fftw3${PREC_SUFFIX}.h)
+if (EXISTS api/fftw3.f)
+  install (FILES api/fftw3.f DESTINATION include RENAME fftw3${PREC_SUFFIX}.f)
+endif ()
 
-if (Threads_FOUND AND BUILD_TESTS)
+if (BUILD_TESTS)
+
   add_executable (bench ${fftw_libbench2_SOURCE} tests/bench.c tests/hook.c tests/fftw-bench.c)
 
-  if (WITH_COMBINED_THREADS)
-    target_link_libraries (bench ${fftw3_lib})
-  else ()
+  if (ENABLE_THREADS AND NOT WITH_COMBINED_THREADS)
     target_link_libraries (bench ${fftw3_lib}_threads)
+  else ()
+    target_link_libraries (bench ${fftw3_lib})
   endif ()
 
-  macro (fftw_add_test problem)
-    add_test (NAME ${problem} COMMAND bench -s ${problem})
-  endmacro ()
 
-  fftw_add_test (32x64)
-  fftw_add_test (ib256)
+  enable_testing ()
 
+  if (Threads_FOUND)
+
+    macro (fftw_add_test problem)
+      add_test (NAME ${problem} COMMAND bench -s ${problem})
+    endmacro ()
+
+    fftw_add_test (32x64)
+    fftw_add_test (ib256)
+
+  endif ()
 endif ()
+
+# pkgconfig file
+set (prefix ${CMAKE_INSTALL_PREFIX})
+set (exec_prefix ${CMAKE_INSTALL_PREFIX})
+set (libdir ${CMAKE_INSTALL_PREFIX}/${LIBRARY_PATH})
+set (includedir ${CMAKE_INSTALL_PREFIX}/include)
+set (VERSION ${FFTW_VERSION})
+configure_file (fftw.pc.in fftw${PREC_SUFFIX}.pc @ONLY)
+install (FILES
+          ${CMAKE_CURRENT_BINARY_DIR}/fftw${PREC_SUFFIX}.pc
+         DESTINATION ${LIBRARY_PATH}/pkgconfig
+         COMPONENT Development)
+
+# cmake file
+configure_file (FFTW3Config.cmake.in FFTW3${PREC_SUFFIX}Config.cmake @ONLY)
+configure_file (FFTW3ConfigVersion.cmake.in FFTW3${PREC_SUFFIX}ConfigVersion.cmake @ONLY)
+install (FILES
+          ${CMAKE_CURRENT_BINARY_DIR}/FFTW3${PREC_SUFFIX}Config.cmake
+          ${CMAKE_CURRENT_BINARY_DIR}/FFTW3${PREC_SUFFIX}ConfigVersion.cmake
+         DESTINATION ${LIBRARY_PATH}/cmake/fftw3
+         COMPONENT Development)
