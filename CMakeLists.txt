@@ -356,6 +356,11 @@ foreach(subtarget ${subtargets})
           LIBRARY DESTINATION ${LIBRARY_PATH}
           ARCHIVE DESTINATION ${LIBRARY_PATH})
 endforeach ()
+install(TARGETS ${fftw3_lib}
+          EXPORT FFTW3LibraryDepends
+          RUNTIME DESTINATION bin
+          LIBRARY DESTINATION ${LIBRARY_PATH}
+          ARCHIVE DESTINATION ${LIBRARY_PATH})
 
 install (FILES api/fftw3.h DESTINATION include)
 if (EXISTS api/fftw3.f)
@@ -400,6 +405,7 @@ install (FILES
          COMPONENT Development)
 
 # cmake file
+set (FFTW3_LIBRARIES "FFTW3::${fftw3_lib}")
 configure_file (FFTW3Config.cmake.in FFTW3${PREC_SUFFIX}Config.cmake @ONLY)
 configure_file (FFTW3ConfigVersion.cmake.in FFTW3${PREC_SUFFIX}ConfigVersion.cmake @ONLY)
 install (FILES
@@ -407,3 +413,9 @@ install (FILES
           ${CMAKE_CURRENT_BINARY_DIR}/FFTW3${PREC_SUFFIX}ConfigVersion.cmake
          DESTINATION ${LIBRARY_PATH}/cmake/fftw3${PREC_SUFFIX}
          COMPONENT Development)
+
+export (TARGETS ${fftw3_lib} NAMESPACE FFTW3:: FILE ${PROJECT_BINARY_DIR}/FFTW3LibraryDepends.cmake)
+install(EXPORT FFTW3LibraryDepends
+        NAMESPACE FFTW3::
+        DESTINATION ${LIBRARY_PATH}/cmake/fftw3${PREC_SUFFIX}
+        COMPONENT Development)
