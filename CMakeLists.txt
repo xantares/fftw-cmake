@@ -357,9 +357,9 @@ foreach(subtarget ${subtargets})
           ARCHIVE DESTINATION ${LIBRARY_PATH})
 endforeach ()
 
-install (FILES api/fftw3.h DESTINATION include RENAME fftw3${PREC_SUFFIX}.h)
+install (FILES api/fftw3.h DESTINATION include)
 if (EXISTS api/fftw3.f)
-  install (FILES api/fftw3.f DESTINATION include RENAME fftw3${PREC_SUFFIX}.f)
+  install (FILES api/fftw3.f DESTINATION include)
 endif ()
 
 if (BUILD_TESTS)
