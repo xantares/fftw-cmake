@@ -22,12 +22,12 @@ build_script:
   - 7z x fftw-3.3.6-pl2.tar
   - xcopy C:\projects\fftw-cmake\* C:\projects\fftw-3.3.6-pl2 /s /e /y || exit 1
   - cd c:\projects\fftw-3.3.6-pl2
-  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON -DENABLE_LONG_DOUBLE=OFF -DENABLE_SSE2=OFF .
+  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DENABLE_THREADS=ON -DWITH_COMBINED_THREADS=ON -DENABLE_FLOAT=ON .
   - type config.h
   - cmake --build . --config %Configuration% --target install
   - ctest -C %Configuration% --output-on-failure
   - cd extern_test
-  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DCMAKE_PREFIX_PATH=%CD:\=/%/../install2" -DFFTW3f_DIR=c:/projects/fftw-3.3.6-pl2/install2/lib/cmake/fftw3f .
+  - cmake -LAH -G "%CMAKE_PLATFORM%" -DCMAKE_INSTALL_PREFIX="%CD:\=/%/install2" -DFFTW3f_DIR="C:/projects/fftw-3.3.6-pl2/install2/lib/cmake/fftw3f" .
   - cmake --build . --config %Configuration% --target install
   - xcopy %CD%\..\install2\bin\*.dll . /y || exit 1
   - ctest -C %Configuration% --output-on-failure
